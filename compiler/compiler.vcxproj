@@ -127,7 +127,21 @@
     </Link>
   </ItemDefinitionGroup>
 
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="tokenizer\tokenizer.cpp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="assembly-references\exit_with_error_code.asm" />
+    <Content Include="cypp-code\exit_with_error_code.cypp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ClInclude Include="tokenizer\token.h" />
+    <ClInclude Include="tokenizer\tokenizer.h" />
+    <ClInclude Include="tokenizer\token_type.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
