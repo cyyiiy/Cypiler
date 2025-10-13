@@ -1,6 +1,5 @@
 #include <iostream>
-#include <fstream>
-#include <sstream>
+#include "utils/file_reader.h"
 
 
 int main(int argc, char* argv[])
@@ -11,12 +10,15 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    std::fstream file(argv[1], std::ios::in);
-    std::stringstream file_content;
-    file_content << file.rdbuf();
-    file.close();
-
     std::cout << "Compiling " << argv[1] << "...\n";
-    std::cout << "Raw source:\n" << file_content.str() << "\n";
+
+    std::string content;
+    if (!file_reader::read_file(argv[1], ".cypp", content))
+    {
+        std::cerr << content << "\n";
+        return EXIT_FAILURE;
+    }
+
+    std::cout << "Raw source:\n" << content << "\n";
     return EXIT_SUCCESS;
 }

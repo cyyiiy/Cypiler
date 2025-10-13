@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="utils\file_reader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="tokenizer\tokenizer.cpp" />
   </ItemGroup>
@@ -132,6 +133,7 @@
     <Content Include="cypp-code\exit_with_error_code.cypp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="utils\file_reader.h" />
     <ClInclude Include="tokenizer\token.h" />
     <ClInclude Include="tokenizer\tokenizer.h" />
     <ClInclude Include="tokenizer\token_type.h" />
