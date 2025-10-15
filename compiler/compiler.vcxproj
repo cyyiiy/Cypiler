@@ -124,6 +124,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="tokenizer\token.cpp" />
+    <ClCompile Include="tokenizer\token_type.cpp" />
     <ClCompile Include="utils\file_reader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="tokenizer\tokenizer.cpp" />

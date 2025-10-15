@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 enum class token_type
 {
@@ -15,3 +16,8 @@ enum class token_type
     sntx_par_close,
     sntx_quote,
 };
+
+namespace token_utils
+{
+    std::string to_string(token_type type);
+}
