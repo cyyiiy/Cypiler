@@ -1,5 +1,6 @@
 #include <iostream>
 #include "utils/file_reader.h"
+#include "tokenizer/tokenizer.h"
 
 
 int main(int argc, char* argv[])
@@ -20,5 +21,9 @@ int main(int argc, char* argv[])
     }
 
     std::cout << "Raw source:\n" << content << "\n";
+
+    tokenizer tokenizer(content);
+    std::vector<token> tokens = tokenizer.tokenize();
+
     return EXIT_SUCCESS;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <optional>
 #include "token.h"
 
 
@@ -18,5 +19,9 @@ public:
     std::vector<token> tokenize();
 
 private:
+    std::optional<char> peak_char() const;
+    [[nodiscard]] char consume_char();
+
     const std::string m_source;
+    int m_read_index{ 0 };
 };

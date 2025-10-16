@@ -7,6 +7,27 @@ tokenizer::tokenizer(std::string source) : m_source(std::move(source))
 
 std::vector<token> tokenizer::tokenize()
 {
-    return {};
+    std::optional<char> next_char = peak_char();
+    while (next_char.has_value())
+    {
+        // TODO: write the tokenizer
+        char temp = consume_char();
+
+        next_char = peak_char();
+    }
 }
 
+std::optional<char> tokenizer::peak_char() const
+{
+    if (m_read_index >= m_source.length())
+        return {};
+
+    return m_source.at(m_read_index);
+}
+
+char tokenizer::consume_char()
+{
+    const char out = m_source.at(m_read_index);
+    m_read_index++;
+    return out;
+}
