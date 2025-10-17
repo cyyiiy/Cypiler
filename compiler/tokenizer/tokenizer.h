@@ -19,9 +19,9 @@ public:
     std::vector<token> tokenize();
 
 private:
-    std::optional<char> peak_char() const;
+    [[nodiscard]] std::optional<char> peek_char() const;
     [[nodiscard]] char consume_char();
 
     const std::string m_source;
-    int m_read_index{ 0 };
+    size_t m_read_index{ 0 };
 };
