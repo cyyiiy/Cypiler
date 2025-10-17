@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    std::cout << "Compiling " << argv[1] << "...\n";
+    std::cout << "Compiling " << argv[1] << "...\n\n";
 
     std::string content;
     if (!file_reader::read_file(argv[1], ".cypp", content))
@@ -20,10 +20,17 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    std::cout << "Raw source:\n" << content << "\n";
+    std::cout << "Raw source:\n----------\n" << content << "\n==========\n\n";
 
     tokenizer tokenizer(content);
-    std::vector<token> tokens = tokenizer.tokenize();
+    const std::vector<token> tokens = tokenizer.tokenize();
+
+    std::cout << "Tokens:\n----------\n";
+    for (const auto& token : tokens)
+    {
+        std::cout << token.to_string() << "\n";
+    }
+    std::cout << "==========\n\n";
 
     return EXIT_SUCCESS;
 }

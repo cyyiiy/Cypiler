@@ -20,8 +20,17 @@ public:
 
 private:
     [[nodiscard]] std::optional<char> peek_char() const;
-    [[nodiscard]] char consume_char();
+    char consume_char();
+    
+    [[nodiscard]] token search_instruction();
+    [[nodiscard]] token search_syntax();
+    
+    [[nodiscard]] token get_value_numeric();
+    [[nodiscard]] token get_value_text();
 
+    
     const std::string m_source;
     size_t m_read_index{ 0 };
+
+    std::vector<token> m_tokens;
 };

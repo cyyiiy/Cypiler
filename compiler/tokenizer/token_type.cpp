@@ -1,17 +1,19 @@
 #include "token_type.h"
 
-std::string token_utils::to_string(token_type type)
+std::string token_utils::to_string(const token_type type)
 {
     switch (type)
     {
+    // Instructions
+        
     case token_type::istr_exit:
         return "Instruction 'Exit'";
 
     case token_type::istr_print:
         return "Instruction 'Print'";
 
-    case token_type::val_uint8:
-        return "Value 'UInt8'";
+        
+    // Syntax
 
     case token_type::sntx_semicolon:
         return "Syntax 'Semicolon'";
@@ -22,8 +24,14 @@ std::string token_utils::to_string(token_type type)
     case token_type::sntx_par_close:
         return "Syntax 'Close Parenthesis'";
 
-    case token_type::sntx_quote:
-        return "Syntax 'Quote'";
+
+    // Values
+
+    case token_type::val_numeric:
+        return "Value 'Numeric'";
+
+    case token_type::val_text:
+        return "Value 'Text'";
 
     default:
         return "Unimplemented token type!";

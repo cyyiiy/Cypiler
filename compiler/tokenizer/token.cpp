@@ -1,6 +1,6 @@
 #include "token.h"
 
-std::string token::to_string()
+std::string token::to_string() const
 {
     std::string out = token_utils::to_string(m_type);
     
@@ -9,7 +9,7 @@ std::string token::to_string()
     return out + " - " + m_raw_value;
 }
 
-std::string token_utils::to_string(token token)
+std::string token_utils::to_string(const token& token)
 {
     return token.to_string();
 }

@@ -7,14 +7,14 @@ enum class token_type
     istr_exit,
     istr_print,
 
-    // Values
-    val_uint8,
-
     // Syntax
     sntx_semicolon,
     sntx_par_open,
     sntx_par_close,
-    sntx_quote,
+
+    // Values
+    val_numeric,
+    val_text,
 };
 
 namespace token_utils
