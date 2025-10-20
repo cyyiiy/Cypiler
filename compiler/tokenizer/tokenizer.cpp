@@ -1,5 +1,5 @@
 #include "tokenizer.h"
-#include <stdexcept>
+#include <iostream>
 
 
 tokenizer::tokenizer(std::string source) : m_source(std::move(source))
@@ -83,7 +83,8 @@ token tokenizer::search_instruction()
         return token(token_type::istr_print);
     }
     
-    throw std::invalid_argument("Unknown instruction: " + token_buffer);
+    std::cerr << "Unknown instruction: " << token_buffer << "\n";
+    exit(EXIT_FAILURE);
 }
 
 token tokenizer::search_syntax()
@@ -100,7 +101,8 @@ token tokenizer::search_syntax()
         return token(token_type::sntx_par_close);
 
     default:
-        throw std::invalid_argument("Unknown syntax: " + std::to_string(syntax_char));
+        std::cerr << "Unkown syntax: " << syntax_char << "\n";
+        exit(EXIT_FAILURE);
     }
 }
 
