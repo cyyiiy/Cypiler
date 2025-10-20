@@ -1,15 +1,21 @@
 #include <iostream>
 #include "utils/file_reader.h"
 #include "tokenizer/tokenizer.h"
+#include "parser/parser.h"
 
 
 int main(int argc, char* argv[])
 {
+    // 0. Check arguments
+
     if (argc != 2)
     {
         std::cerr << "Incorrect usage! Should be called with 1 argument.\n";
         return EXIT_FAILURE;
     }
+
+
+    // 1. Open file
 
     std::cout << "Compiling " << argv[1] << "...\n\n";
 
@@ -22,6 +28,9 @@ int main(int argc, char* argv[])
 
     std::cout << "Raw source:\n----------\n" << content << "\n==========\n\n";
 
+    
+    // 2. Tokenize source code
+
     tokenizer tokenizer(content);
     const std::vector<token> tokens = tokenizer.tokenize();
 
@@ -31,6 +40,13 @@ int main(int argc, char* argv[])
         std::cout << token.to_string() << "\n";
     }
     std::cout << "==========\n\n";
+
+
+    // 3. Parse tokens
+
+    parser parser(tokens);
+
+
 
     return EXIT_SUCCESS;
 }

@@ -96,6 +96,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Compile File|x64'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -175,6 +178,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="parser\parser.cpp" />
     <ClCompile Include="tokenizer\token.cpp" />
     <ClCompile Include="tokenizer\token_type.cpp" />
     <ClCompile Include="utils\file_reader.cpp" />
@@ -186,6 +190,7 @@
     <Content Include="cypp-code\exit_with_error_code.cypp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="parser\parser.h" />
     <ClInclude Include="utils\file_reader.h" />
     <ClInclude Include="tokenizer\token.h" />
     <ClInclude Include="tokenizer\tokenizer.h" />
