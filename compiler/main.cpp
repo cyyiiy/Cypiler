@@ -45,7 +45,14 @@ int main(int argc, char* argv[])
     // 3. Parse tokens
 
     parser parser(tokens);
+    const std::vector<std::shared_ptr<node_root>> root_nodes = parser.parse();
 
+    std::cout << "Parsed nodes:\n----------\n";
+    for (const auto& node : root_nodes)
+    {
+        std::cout << node->to_string() << "\n";
+    }
+    std::cout << "==========\n\n";
 
 
     return EXIT_SUCCESS;

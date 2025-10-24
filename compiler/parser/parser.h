@@ -1,8 +1,10 @@
 #pragma once
+#include <memory>
 #include <vector>
 #include <optional>
 #include <tokenizer/token.h>
-// TODO: #include "node.h"
+#include "node_root.h"
+#include "node_expr.h"
 
 
 class parser
@@ -16,13 +18,21 @@ public:
     parser& operator=(const parser& other) = delete;
     parser& operator=(parser&& other) = delete;
 
-    // TODO: std::vector<node> parse();
+    std::vector<std::shared_ptr<node_root>> parse();
 
 private:
     [[nodiscard]] std::optional<token> peek_token() const;
     token consume_token();
+    void require_token_type(token_type type);
+
+    [[nodiscard]] std::shared_ptr<node_root_exit> construct_exit();
+
+    [[nodiscard]] std::shared_ptr<node_expr_numeric> search_numeric_expression();
+    
 
     std::vector<token> m_tokens;
     size_t m_token_index{ 0 };
+
+    std::vector<std::shared_ptr<node_root>> m_root_nodes;
 };
 

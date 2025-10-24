@@ -3,10 +3,29 @@
 
 struct node
 {
-	[[nodiscard]] virtual std::string to_string() const = 0;
+	virtual ~node() = default;
+	
+	[[nodiscard]] virtual std::string to_string(const int offset = 0) const = 0;
 
-	static std::string to_string(const node& node)
+	static std::string to_string(const node& node, const int offset = 0)
 	{
-		return node.to_string();
+		return node.to_string(offset);
+	}
+
+protected:
+	static std::string offset_to_string(const int offset)
+	{
+		std::string out;
+    
+		if (offset > 0)
+		{
+			for (int i = 1; i < offset; i++)
+			{
+				out += "   ";
+			}
+			out += " > ";
+		}
+
+		return out;
 	}
 };
