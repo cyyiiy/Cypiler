@@ -4,7 +4,7 @@
     <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Compile File|x64'">
-    <LocalDebuggerCommandArguments>cypp-code/exit_with_error_code.cypp</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>cypp-code/print_and_exit.cypp</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

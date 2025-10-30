@@ -9,3 +9,13 @@ std::string node_root_exit::to_string(const int offset) const
 
     return out;
 }
+
+std::string node_root_print::to_string(const int offset) const
+{
+    std::string out = offset_to_string(offset);
+
+    out += "Print\n";
+    out += m_expr_text->to_string(offset + 1);
+
+    return out;
+}

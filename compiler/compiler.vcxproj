@@ -204,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assembly-references\print_and_exit.asm" />
+    <None Include="cypp-code\print_and_exit.cypp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

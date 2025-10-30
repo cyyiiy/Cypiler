@@ -26,8 +26,10 @@ private:
     void require_token_type(token_type type);
 
     [[nodiscard]] std::shared_ptr<node_root_exit> construct_exit();
+    [[nodiscard]] std::shared_ptr<node_root_print> construct_print();
 
     [[nodiscard]] std::shared_ptr<node_expr_numeric> search_numeric_expression();
+    [[nodiscard]] std::shared_ptr<node_expr_text> search_text_expression();
     
 
     std::vector<token> m_tokens;
