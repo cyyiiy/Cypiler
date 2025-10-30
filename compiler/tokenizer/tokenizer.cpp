@@ -128,6 +128,11 @@ token tokenizer::get_value_text()
         text_buffer += consume_char();
         next_char = peek_char();
     }
+    if (!next_char.has_value())
+    {
+        std::cerr << "Missing closing quote!\n";
+        exit(EXIT_FAILURE);
+    }
 
     consume_char(); // Consume the closing quote
     return token(token_type::val_text, text_buffer);
