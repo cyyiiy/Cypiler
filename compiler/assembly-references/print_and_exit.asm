@@ -10,6 +10,7 @@ _start:
     mov rdi, 1      ; file descriptor 1 (write)
     mov rsi, msg0   ; text address
     mov rdx, len0   ; text length
+    syscall
 
     mov rax, 60     ; syscall 'exit'
     mov rdi, 0      ; exit code 0

@@ -16,7 +16,7 @@ public:
     tokenizer& operator=(const tokenizer& other) = delete;
     tokenizer& operator=(tokenizer&& other) = delete;
 
-    std::vector<token> tokenize();
+    [[nodiscard]] std::vector<token> tokenize();
 
 private:
     [[nodiscard]] std::optional<char> peek_char() const;

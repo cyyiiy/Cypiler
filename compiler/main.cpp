@@ -1,4 +1,6 @@
 #include <iostream>
+
+#include "generator/generator.h"
 #include "utils/file_reader.h"
 #include "tokenizer/tokenizer.h"
 #include "parser/parser.h"
@@ -70,6 +72,16 @@ int main(int argc, char* argv[])
     {
         std::cout << node->to_string() << "\n";
     }
+    std::cout << "==========\n\n";
+
+
+    // 4. Generate assembly
+
+    generator generator(root_nodes);
+    const std::string assembly = generator.generate();
+
+    std:: cout << "Assembly code:\n----------\n";
+    std::cout << assembly << "\n";
     std::cout << "==========\n\n";
 
 

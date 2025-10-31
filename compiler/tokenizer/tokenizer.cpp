@@ -1,5 +1,5 @@
 #include "tokenizer.h"
-#include <iostream>
+#include <stdexcept>
 
 
 tokenizer::tokenizer(std::string source) : m_source(std::move(source))

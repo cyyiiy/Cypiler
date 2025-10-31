@@ -1,5 +1,5 @@
 #include "parser.h"
-#include <iostream>
+#include <stdexcept>
 
 
 parser::parser(std::vector<token> tokens) : m_tokens(std::move(tokens))

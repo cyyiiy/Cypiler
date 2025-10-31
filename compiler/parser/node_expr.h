@@ -23,4 +23,5 @@ struct node_expr_text : node_expr
 	[[nodiscard]] std::string to_string(const int offset = 0) const override;
 
 	std::string m_text_value;
+	int m_assembly_text_index{ 0 };
 };

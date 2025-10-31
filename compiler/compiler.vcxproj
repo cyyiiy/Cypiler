@@ -179,6 +179,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="generator\generator.cpp" />
     <ClCompile Include="parser\node_expr.cpp" />
     <ClCompile Include="parser\parser.cpp" />
     <ClCompile Include="parser\node_root.cpp" />
@@ -193,6 +194,7 @@
     <Content Include="cypp-code\exit_with_error_code.cypp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="generator\generator.h" />
     <ClInclude Include="parser\node.h" />
     <ClInclude Include="parser\node_expr.h" />
     <ClInclude Include="parser\parser.h" />

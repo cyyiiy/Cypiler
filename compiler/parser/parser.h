@@ -18,7 +18,7 @@ public:
     parser& operator=(const parser& other) = delete;
     parser& operator=(parser&& other) = delete;
 
-    std::vector<std::shared_ptr<node_root>> parse();
+    [[nodiscard]] std::vector<std::shared_ptr<node_root>> parse();
 
 private:
     [[nodiscard]] std::optional<token> peek_token() const;
