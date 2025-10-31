@@ -32,7 +32,16 @@ int main(int argc, char* argv[])
     // 2. Tokenize source code
 
     tokenizer tokenizer(content);
-    const std::vector<token> tokens = tokenizer.tokenize();
+    std::vector<token> tokens;
+    try
+    {
+        tokens = tokenizer.tokenize();
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Tokenizer error: " << e.what() << "\n";
+        return EXIT_FAILURE;
+    }
 
     std::cout << "Tokens:\n----------\n";
     for (const auto& token : tokens)
@@ -45,7 +54,16 @@ int main(int argc, char* argv[])
     // 3. Parse tokens
 
     parser parser(tokens);
-    const std::vector<std::shared_ptr<node_root>> root_nodes = parser.parse();
+    std::vector<std::shared_ptr<node_root>> root_nodes;
+    try
+    {
+        root_nodes = parser.parse();
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Parser error: " << e.what() << "\n";
+        return EXIT_FAILURE;
+    }
 
     std::cout << "Parsed nodes:\n----------\n";
     for (const auto& node : root_nodes)

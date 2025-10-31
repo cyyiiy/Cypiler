@@ -23,7 +23,7 @@ public:
 private:
     [[nodiscard]] std::optional<token> peek_token() const;
     token consume_token();
-    void require_token_type(token_type type);
+    void require_token_type(const token_type type) const;
 
     [[nodiscard]] std::shared_ptr<node_root_exit> construct_exit();
     [[nodiscard]] std::shared_ptr<node_root_print> construct_print();

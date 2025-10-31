@@ -82,9 +82,8 @@ token tokenizer::search_instruction()
     {
         return token(token_type::istr_print);
     }
-    
-    std::cerr << "Unknown instruction: " << token_buffer << "\n";
-    exit(EXIT_FAILURE);
+
+    throw std::invalid_argument("Unknown instruction: " + token_buffer);
 }
 
 token tokenizer::search_syntax()
@@ -101,8 +100,7 @@ token tokenizer::search_syntax()
         return token(token_type::sntx_par_close);
 
     default:
-        std::cerr << "Unkown syntax: " << syntax_char << "\n";
-        exit(EXIT_FAILURE);
+        throw std::invalid_argument("Unknown syntax: " + std::string{syntax_char});
     }
 }
 
@@ -130,8 +128,7 @@ token tokenizer::get_value_text()
     }
     if (!next_char.has_value())
     {
-        std::cerr << "Missing closing quote!\n";
-        exit(EXIT_FAILURE);
+        throw std::invalid_argument("Missing closing quote");
     }
 
     consume_char(); // Consume the closing quote

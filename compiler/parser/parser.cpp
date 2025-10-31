@@ -30,8 +30,7 @@ std::vector<std::shared_ptr<node_root>> parser::parse()
 			continue;
 		}
 
-		std::cerr << "Incorrect token placement: Isolated " << next_token.value().to_string() << "\n";
-		exit(EXIT_FAILURE);
+		throw std::invalid_argument("Incorrect token placement: Isolated <" + next_token.value().to_string() + ">");
 	}
 
 	return m_root_nodes;
@@ -52,18 +51,16 @@ token parser::consume_token()
 	return out;
 }
 
-void parser::require_token_type(token_type type)
+void parser::require_token_type(const token_type type) const
 {
-	std::optional<token> next_token = peek_token();
+	const std::optional<token> next_token = peek_token();
 	if (!next_token.has_value())
 	{
-		std::cerr << "Syntax error: required <" << token_utils::to_string(type) << ">, got nothing!\n";
-		exit(EXIT_FAILURE);
+		throw std::invalid_argument("Syntax error: required <" + token_utils::to_string(type) + ">, got nothing");
 	}
 	if (next_token.value().m_type != type)
 	{
-		std::cerr << "Syntax error: required <" << token_utils::to_string(type) << ">, got <" << next_token.value().to_string() << ">!\n";
-		exit(EXIT_FAILURE);
+		throw std::invalid_argument("Syntax error: required <" + token_utils::to_string(type) + ">, got <" + next_token.value().to_string() + ">");
 	}
 }
 
@@ -109,11 +106,10 @@ std::shared_ptr<node_root_print> parser::construct_print()
 
 std::shared_ptr<node_expr_numeric> parser::search_numeric_expression()
 {
-	std::optional<token> next_token = peek_token();
+	const std::optional<token> next_token = peek_token();
 	if (!next_token.has_value())
 	{
-		std::cerr << "Syntax error: required numeric expression, got nothing!\n";
-		exit(EXIT_FAILURE);
+		throw std::invalid_argument("Syntax error: required numeric expression, got nothing");
 	}
 	
 	if (next_token.value().m_type == token_type::val_numeric)
@@ -121,17 +117,15 @@ std::shared_ptr<node_expr_numeric> parser::search_numeric_expression()
 		return std::make_shared<node_expr_numeric>(consume_token().m_raw_value);
 	}
 
-	std::cerr << "Syntax error: required numeric expression, got <" << next_token.value().to_string() << ">!\n";
-	exit(EXIT_FAILURE);
+	throw std::invalid_argument("Syntax error: required numeric expression, got <" + next_token.value().to_string() + ">");
 }
 
 std::shared_ptr<node_expr_text> parser::search_text_expression()
 {
-	std::optional<token> next_token = peek_token();
+	const std::optional<token> next_token = peek_token();
 	if (!next_token.has_value())
 	{
-		std::cerr << "Syntax error: required text expression, got nothing!\n";
-		exit(EXIT_FAILURE);
+		throw std::invalid_argument("Syntax error: required text expression, got nothing");
 	}
 
 	if (next_token.value().m_type == token_type::val_text)
@@ -139,6 +133,5 @@ std::shared_ptr<node_expr_text> parser::search_text_expression()
 		return std::make_shared<node_expr_text>(consume_token().m_raw_value);
 	}
 
-	std::cerr << "Syntax error: required numeric expression, got <" << next_token.value().to_string() << ">!\n";
-	exit(EXIT_FAILURE);
+	throw std::invalid_argument("Syntax error: required text expression, got <" + next_token.value().to_string() + ">");
 }
