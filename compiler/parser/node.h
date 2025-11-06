@@ -19,7 +19,7 @@ protected:
     
 		if (offset > 0)
 		{
-			for (int i = 1; i < offset; i++)
+			for (int i = 0; i < offset - 1; i++)
 			{
 				out += "   ";
 			}

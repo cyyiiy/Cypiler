@@ -26,26 +26,13 @@ std::string generator::generate()
 
     // Code section, write syscalls
     m_assembly << "_start:\n";
-    for (const auto& root_node : m_root_nodes)
+    for (size_t i = 0; i < m_root_nodes.size(); i++)
     {
-        const std::shared_ptr<node_root_exit>& exit_node = std::dynamic_pointer_cast<node_root_exit>(root_node);
-        if (exit_node)
+        m_assembly << m_root_nodes[i]->to_assembly();
+
+        if (i < m_root_nodes.size() - 1)
         {
-            m_assembly << "    mov rax, 60\n";
-            m_assembly << "    mov rdi, " << exit_node->m_expr_numeric->m_numeric_value << "\n";
-            m_assembly << "    syscall\n\n";
-            continue;
-        }
-        
-        const std::shared_ptr<node_root_print>& print_node = std::dynamic_pointer_cast<node_root_print>(root_node);
-        if (print_node)
-        {
-            m_assembly << "    mov rax, 1\n";
-            m_assembly << "    mov rdi, 1\n";
-            m_assembly << "    mov rsi, msg" << print_node->m_expr_text->m_assembly_text_index << "\n";
-            m_assembly << "    mov rdx, len" << print_node->m_expr_text->m_assembly_text_index << "\n";
-            m_assembly << "    syscall\n\n";
-            continue;
+            m_assembly << "\n\n";
         }
     }
 
