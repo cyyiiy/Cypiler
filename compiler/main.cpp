@@ -1,9 +1,11 @@
 #include <iostream>
+#include <filesystem>
 
-#include "generator/generator.h"
 #include "utils/file_reader.h"
+#include "utils/file_writer.h"
 #include "tokenizer/tokenizer.h"
 #include "parser/parser.h"
+#include "generator/generator.h"
 
 
 int main(int argc, char* argv[])
@@ -80,10 +82,26 @@ int main(int argc, char* argv[])
     generator generator(root_nodes);
     const std::string assembly = generator.generate();
 
-    std:: cout << "Assembly code:\n----------\n";
+    std::cout << "Assembly code:\n----------\n";
     std::cout << assembly << "\n";
     std::cout << "==========\n\n";
 
+
+    // 5. Write assembly to file
+
+    std::filesystem::path asm_path = std::filesystem::path(argv[0]).parent_path();
+    std::filesystem::path asm_name = std::filesystem::path(argv[1]).filename();
+    asm_name.replace_extension(".asm");
+    asm_path /= asm_name;
+
+    std::string error;
+    if (!file_writer::write_file(asm_path, assembly, error))
+    {
+        std::cerr << error << "\n";
+        return EXIT_FAILURE;
+    }
+
+    std::cout << "Assembly file generated at " << asm_path << "\n";
 
     return EXIT_SUCCESS;
 }

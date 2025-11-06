@@ -39,6 +39,12 @@
     <ClCompile Include="parser\node_expr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="generator\generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\file_writer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokenizer\token.h">
@@ -63,6 +69,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="parser\node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="generator\generator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\file_writer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

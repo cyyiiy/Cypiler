@@ -188,6 +188,7 @@
     <ClCompile Include="utils\file_reader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="tokenizer\tokenizer.cpp" />
+    <ClCompile Include="utils\file_writer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assembly-references\exit_with_error_code.asm" />
@@ -203,6 +204,7 @@
     <ClInclude Include="tokenizer\token.h" />
     <ClInclude Include="tokenizer\tokenizer.h" />
     <ClInclude Include="tokenizer\token_type.h" />
+    <ClInclude Include="utils\file_writer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assembly-references\print_and_exit.asm" />

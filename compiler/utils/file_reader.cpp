@@ -1,32 +1,29 @@
 #include "file_reader.h"
-#include <filesystem>
 #include <fstream>
 #include <sstream>
 
 
-bool file_reader::read_file(const std::string& file_path, const std::string& extension, std::string& out)
+bool file_reader::read_file(const std::filesystem::path& file_path, const std::string& extension, std::string& out)
 {
-	std::filesystem::path path(file_path);
-
-	if (!std::filesystem::exists(path))
+	if (!std::filesystem::exists(file_path))
 	{
 		out = "Given path doesn't exists!";
 		return false;
 	}
 	
-	if (!std::filesystem::is_regular_file(path))
+	if (!std::filesystem::is_regular_file(file_path))
 	{
 		out = "Given path does not point to a file!";
 		return false;
 	}
 
-	if (path.extension() != extension)
+	if (file_path.extension() != extension)
 	{
 		out = "File extension is not " + extension + "!";
 		return false;
 	}
 
-	std::ifstream file(path);
+	std::ifstream file(file_path);
 	if (!file)
 	{
 		out = "Unable to open the file!";
