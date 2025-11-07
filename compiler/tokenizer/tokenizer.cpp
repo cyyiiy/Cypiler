@@ -123,6 +123,11 @@ token tokenizer::get_value_text()
     std::optional<char> next_char = peek_char();
     while (next_char.has_value() && next_char.value() != '"')
     {
+        if (next_char.value() == '\n' || next_char.value() == '\r')
+        {
+            throw std::invalid_argument("Line break inside quotes");
+        }
+        
         text_buffer += consume_char();
         next_char = peek_char();
     }
