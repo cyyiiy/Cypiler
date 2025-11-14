@@ -22,9 +22,9 @@ std::vector<token> tokenizer::tokenize()
             continue;
         }
 
-        if (isalpha(next_char.value()))
+        if (isalpha(next_char.value()) || next_char.value() == '_')
         {
-            m_tokens.push_back(search_instruction());
+            m_tokens.push_back(search_alpha_token());
             continue;
         }
 
@@ -62,28 +62,30 @@ char tokenizer::consume_char()
     return out;
 }
 
-token tokenizer::search_instruction()
+token tokenizer::search_alpha_token()
 {
-    // 1. Read the instruction
+    // 1. Read the alpha token
     std::string token_buffer;
     std::optional<char> next_char = peek_char();
-    while (next_char.has_value() && isalpha(next_char.value()))
+    while (next_char.has_value() && (isalnum(next_char.value()) || next_char.value() == '_' || next_char.value() == '-'))
     {
         token_buffer += consume_char();
         next_char = peek_char();
     }
 
-    // 2. Return token if the instruction exists
-    if (token_buffer == "exit")
+    // 2. Search if the token is an instruction or a type
+    token_type type = token_type::cstm_name;
+    if (test_instruction(token_buffer, type))
     {
-        return token(token_type::istr_exit);
+        return token(type);
     }
-    if (token_buffer == "print")
+    if (test_type(token_buffer, type))
     {
-        return token(token_type::istr_print);
+        return token(type);
     }
-
-    throw std::invalid_argument("Unknown instruction: " + token_buffer);
+    
+    // 3. If the token is not an instruction or a type, return it as a custom name
+    return token(token_type::cstm_name, token_buffer);
 }
 
 token tokenizer::search_syntax()
@@ -98,6 +100,9 @@ token tokenizer::search_syntax()
 
     case ')':
         return token(token_type::sntx_par_close);
+
+    case '=':
+        return token(token_type::sntx_equal);
 
     default:
         throw std::invalid_argument("Unknown syntax: " + std::string{syntax_char});
@@ -138,4 +143,36 @@ token tokenizer::get_value_text()
 
     consume_char(); // Consume the closing quote
     return token(token_type::val_text, text_buffer);
+}
+
+bool tokenizer::test_instruction(const std::string& token_str, token_type& out_type)
+{
+    if (token_str == "exit")
+    {
+        out_type = token_type::istr_exit;
+        return true;
+    }
+    if (token_str == "print")
+    {
+        out_type = token_type::istr_print;
+        return true;
+    }
+    if (token_str == "var")
+    {
+        out_type = token_type::istr_variable;
+        return true;
+    }
+
+    return false;
+}
+
+bool tokenizer::test_type(const std::string& token_str, token_type& out_type)
+{
+    if (token_str == "int")
+    {
+        out_type = token_type::type_int;
+        return true;
+    }
+
+    return false;
 }

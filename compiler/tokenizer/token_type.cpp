@@ -12,6 +12,15 @@ std::string token_utils::to_string(const token_type type)
     case token_type::istr_print:
         return "Instruction 'Print'";
 
+    case token_type::istr_variable:
+        return "Instruction 'Declare Variable'";
+
+
+    // Types
+
+    case token_type::type_int:
+        return "Type 'int'";
+        
         
     // Syntax
 
@@ -24,6 +33,9 @@ std::string token_utils::to_string(const token_type type)
     case token_type::sntx_par_close:
         return "Syntax 'Close Parenthesis'";
 
+    case token_type::sntx_equal:
+        return "Syntax 'Equal'";
+
 
     // Values
 
@@ -32,6 +44,13 @@ std::string token_utils::to_string(const token_type type)
 
     case token_type::val_text:
         return "Value 'Text'";
+
+
+    // Others
+        
+    case token_type::cstm_name:
+        return "Custom Name";
+        
 
     default:
         return "Unimplemented token type!";

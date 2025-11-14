@@ -192,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assembly-references\exit_with_error_code.asm" />
+    <Content Include="cypp-code\exit_variable_value.cypp" />
     <Content Include="cypp-code\exit_with_error_code.cypp" />
   </ItemGroup>
   <ItemGroup>

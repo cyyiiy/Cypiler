@@ -6,15 +6,23 @@ enum class token_type
     // Instructions
     istr_exit,
     istr_print,
+    istr_variable,
+
+    // Types
+    type_int,
 
     // Syntax
     sntx_semicolon,
     sntx_par_open,
     sntx_par_close,
+    sntx_equal,
 
     // Values
     val_numeric,
     val_text,
+
+    // Others
+    cstm_name,
 };
 
 namespace token_utils
