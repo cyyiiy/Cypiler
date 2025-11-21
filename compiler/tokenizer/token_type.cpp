@@ -12,8 +12,8 @@ std::string token_utils::to_string(const token_type type)
     case token_type::istr_print:
         return "Instruction 'Print'";
 
-    case token_type::istr_variable:
-        return "Instruction 'Declare Variable'";
+    case token_type::istr_constant:
+        return "Instruction 'Declare Constant'";
 
 
     // Types
@@ -48,7 +48,7 @@ std::string token_utils::to_string(const token_type type)
 
     // Others
         
-    case token_type::cstm_name:
+    case token_type::custom_name:
         return "Custom Name";
         
 

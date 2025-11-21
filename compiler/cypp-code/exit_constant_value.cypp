@@ -1,0 +1,2 @@
+const int exit_val = 13;
+exit(exit_val);

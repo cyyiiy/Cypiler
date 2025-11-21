@@ -6,7 +6,7 @@ enum class token_type
     // Instructions
     istr_exit,
     istr_print,
-    istr_variable,
+    istr_constant,
 
     // Types
     type_int,
@@ -22,7 +22,7 @@ enum class token_type
     val_text,
 
     // Others
-    cstm_name,
+    custom_name,
 };
 
 namespace token_utils

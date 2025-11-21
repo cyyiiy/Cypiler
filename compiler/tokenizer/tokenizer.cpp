@@ -74,7 +74,7 @@ token tokenizer::search_alpha_token()
     }
 
     // 2. Search if the token is an instruction or a type
-    token_type type = token_type::cstm_name;
+    token_type type = token_type::custom_name;
     if (test_instruction(token_buffer, type))
     {
         return token(type);
@@ -85,7 +85,7 @@ token tokenizer::search_alpha_token()
     }
     
     // 3. If the token is not an instruction or a type, return it as a custom name
-    return token(token_type::cstm_name, token_buffer);
+    return token(token_type::custom_name, token_buffer);
 }
 
 token tokenizer::search_syntax()
@@ -157,9 +157,9 @@ bool tokenizer::test_instruction(const std::string& token_str, token_type& out_t
         out_type = token_type::istr_print;
         return true;
     }
-    if (token_str == "var")
+    if (token_str == "const")
     {
-        out_type = token_type::istr_variable;
+        out_type = token_type::istr_constant;
         return true;
     }
 
