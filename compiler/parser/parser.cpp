@@ -1,5 +1,4 @@
 #include "parser.h"
-#include <stdexcept>
 
 
 parser::parser(std::vector<token> tokens) : m_tokens(std::move(tokens))
@@ -29,8 +28,21 @@ std::vector<std::shared_ptr<node_root>> parser::parse()
 			m_root_nodes.push_back(construct_print());
 			continue;
 		}
+		
+		if (next_token.value().m_type == token_type::istr_constant)
+		{
+			consume_token(); // Consume the constant declaration token
+			auto constant_pair = construct_constant_declaration();
+			if (m_constants.find(constant_pair.first) != m_constants.end())
+			{
+				// Constant list already registered this constant name
+				throw compiler_exception("Duplicated constant declaration: name \"" + constant_pair.first + "\" is already registered!");
+			}
+			m_constants.insert(constant_pair);
+			continue;
+		}
 
-		throw std::invalid_argument("Incorrect token placement: Isolated <" + next_token.value().to_string() + ">");
+		throw compiler_exception("Incorrect token placement: Isolated <" + next_token.value().to_string() + ">");
 	}
 
 	return m_root_nodes;
@@ -56,11 +68,11 @@ void parser::require_token_type(const token_type type) const
 	const std::optional<token> next_token = peek_token();
 	if (!next_token.has_value())
 	{
-		throw std::invalid_argument("Syntax error: required <" + token_utils::to_string(type) + ">, got nothing");
+		throw compiler_exception("Syntax error: required <" + token_utils::to_string(type) + ">, got nothing");
 	}
 	if (next_token.value().m_type != type)
 	{
-		throw std::invalid_argument("Syntax error: required <" + token_utils::to_string(type) + ">, got <" + next_token.value().to_string() + ">");
+		throw compiler_exception("Syntax error: required <" + token_utils::to_string(type) + ">, got <" + next_token.value().to_string() + ">");
 	}
 }
 
@@ -109,15 +121,20 @@ std::shared_ptr<node_expr_numeric> parser::search_numeric_expression()
 	const std::optional<token> next_token = peek_token();
 	if (!next_token.has_value())
 	{
-		throw std::invalid_argument("Syntax error: required numeric expression, got nothing");
+		throw compiler_exception("Syntax error: required numeric expression, got nothing");
 	}
 	
 	if (next_token.value().m_type == token_type::val_numeric)
 	{
-		return std::make_shared<node_expr_numeric>(consume_token().m_raw_value);
+		return std::make_shared<node_expr_numeric_literal>(consume_token().m_raw_value);
+	}
+	
+	if (next_token.value().m_type == token_type::custom_name)
+	{
+		return retrieve_constant_by_name<node_expr_numeric_constant>(consume_token().m_raw_value, "int");
 	}
 
-	throw std::invalid_argument("Syntax error: required numeric expression, got <" + next_token.value().to_string() + ">");
+	throw compiler_exception("Syntax error: required numeric expression, got <" + next_token.value().to_string() + ">");
 }
 
 std::shared_ptr<node_expr_text> parser::search_text_expression()
@@ -125,7 +142,7 @@ std::shared_ptr<node_expr_text> parser::search_text_expression()
 	const std::optional<token> next_token = peek_token();
 	if (!next_token.has_value())
 	{
-		throw std::invalid_argument("Syntax error: required text expression, got nothing");
+		throw compiler_exception("Syntax error: required text expression, got nothing");
 	}
 
 	if (next_token.value().m_type == token_type::val_text)
@@ -133,5 +150,42 @@ std::shared_ptr<node_expr_text> parser::search_text_expression()
 		return std::make_shared<node_expr_text>(consume_token().m_raw_value);
 	}
 
-	throw std::invalid_argument("Syntax error: required text expression, got <" + next_token.value().to_string() + ">");
+	throw compiler_exception("Syntax error: required text expression, got <" + next_token.value().to_string() + ">");
+}
+
+std::pair<std::string, std::shared_ptr<node_expr>> parser::construct_constant_declaration()
+{
+	const std::optional<token> next_token = peek_token();
+	if (!next_token.has_value())
+	{
+		throw compiler_exception("Syntax error: required value type, got nothing");
+	}
+	
+	switch (next_token.value().m_type)
+	{
+	case token_type::type_int:
+	{
+		consume_token();
+	
+		// Check for custom name
+		require_token_type(token_type::custom_name);
+		std::string constant_name = consume_token().m_raw_value;
+	
+		// Check for equal symbol
+		require_token_type(token_type::sntx_equal);
+		consume_token();
+	
+		// Retrieve constant value
+		std::shared_ptr<node_expr_numeric> constant_value = search_numeric_expression();
+
+		// Check for semicolon
+		require_token_type(token_type::sntx_semicolon);
+		consume_token();
+	
+		return {constant_name, std::make_shared<node_expr_numeric_constant>(constant_name, constant_value)};
+	}
+		
+	default:
+		throw compiler_exception("Syntax error: required value type, got <" + next_token.value().to_string() + ">");
+	}
 }

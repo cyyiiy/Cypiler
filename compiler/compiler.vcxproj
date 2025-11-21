@@ -201,6 +201,7 @@
     <ClInclude Include="parser\node_expr.h" />
     <ClInclude Include="parser\parser.h" />
     <ClInclude Include="parser\node_root.h" />
+    <ClInclude Include="utils\compiler_exception.h" />
     <ClInclude Include="utils\file_reader.h" />
     <ClInclude Include="tokenizer\token.h" />
     <ClInclude Include="tokenizer\tokenizer.h" />

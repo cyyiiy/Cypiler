@@ -1,5 +1,5 @@
 #include "tokenizer.h"
-#include <stdexcept>
+#include <utils/compiler_exception.h>
 
 
 tokenizer::tokenizer(std::string source) : m_source(std::move(source))
@@ -105,7 +105,7 @@ token tokenizer::search_syntax()
         return token(token_type::sntx_equal);
 
     default:
-        throw std::invalid_argument("Unknown syntax: " + std::string{syntax_char});
+        throw compiler_exception("Unknown syntax: " + std::string{syntax_char});
     }
 }
 
@@ -130,7 +130,7 @@ token tokenizer::get_value_text()
     {
         if (next_char.value() == '\n' || next_char.value() == '\r')
         {
-            throw std::invalid_argument("Line break inside quotes");
+            throw compiler_exception("Line break inside quotes");
         }
         
         text_buffer += consume_char();
@@ -138,7 +138,7 @@ token tokenizer::get_value_text()
     }
     if (!next_char.has_value())
     {
-        throw std::invalid_argument("Missing closing quote");
+        throw compiler_exception("Missing closing quote");
     }
 
     consume_char(); // Consume the closing quote

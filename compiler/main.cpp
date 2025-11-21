@@ -1,6 +1,7 @@
 #include <iostream>
 #include <filesystem>
 
+#include "utils/compiler_exception.h"
 #include "utils/file_reader.h"
 #include "utils/file_writer.h"
 #include "tokenizer/tokenizer.h"
@@ -41,7 +42,7 @@ int main(int argc, char* argv[])
     {
         tokens = tokenizer.tokenize();
     }
-    catch (const std::exception& e)
+    catch (const compiler_exception& e)
     {
         std::cerr << "Tokenizer error: " << e.what() << "\n";
         return EXIT_FAILURE;
@@ -63,7 +64,7 @@ int main(int argc, char* argv[])
     {
         root_nodes = parser.parse();
     }
-    catch (const std::exception& e)
+    catch (const compiler_exception& e)
     {
         std::cerr << "Parser error: " << e.what() << "\n";
         return EXIT_FAILURE;
