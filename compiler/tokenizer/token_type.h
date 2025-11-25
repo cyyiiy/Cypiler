@@ -10,6 +10,7 @@ enum class token_type
 
     // Types
     type_int,
+    type_string,
 
     // Syntax
     sntx_semicolon,

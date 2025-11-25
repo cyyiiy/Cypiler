@@ -174,5 +174,11 @@ bool tokenizer::test_type(const std::string& token_str, token_type& out_type)
         return true;
     }
 
+    if (token_str == "string")
+    {
+        out_type = token_type::type_string;
+        return true;
+    }
+
     return false;
 }

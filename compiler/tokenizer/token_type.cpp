@@ -20,6 +20,9 @@ std::string token_utils::to_string(const token_type type)
 
     case token_type::type_int:
         return "Type 'int'";
+
+    case token_type::type_string:
+        return "Type 'string'";
         
         
     // Syntax
