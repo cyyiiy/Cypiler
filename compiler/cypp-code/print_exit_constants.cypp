@@ -1,0 +1,7 @@
+const string print_val = "Hello from constant value!";
+const int exit_val = 13;
+
+print(print_val);
+print("Hello from direct text!");
+
+exit(exit_val);

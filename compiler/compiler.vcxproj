@@ -210,6 +210,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assembly-references\print_and_exit.asm" />
+    <None Include="cypp-code\print_exit_constants.cypp" />
+    <None Include="cypp-code\exit_with_error_code.cypp" />
     <None Include="cypp-code\print_and_exit.cypp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
