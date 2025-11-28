@@ -6,11 +6,12 @@ parser::parser(std::vector<token> tokens) : m_tokens(std::move(tokens))
 }
 
 
-std::vector<std::shared_ptr<node_root>> parser::parse()
+parse_result parser::parse()
 {
 	// Reset potential previous parsing
 	m_token_index = 0;
-	m_root_nodes.clear();
+	m_parse_result.m_root_nodes.clear();
+	m_parse_result.m_text_literals.clear();
 
 	std::optional<token> next_token;
 	while ((next_token = peek_token()).has_value())
@@ -18,14 +19,14 @@ std::vector<std::shared_ptr<node_root>> parser::parse()
 		if (next_token.value().m_type == token_type::istr_exit)
 		{
 			consume_token(); // Consume the exit token
-			m_root_nodes.push_back(construct_exit());
+			m_parse_result.m_root_nodes.push_back(construct_exit());
 			continue;
 		}
 
 		if (next_token.value().m_type == token_type::istr_print)
 		{
 			consume_token(); // Consume the print token
-			m_root_nodes.push_back(construct_print());
+			m_parse_result.m_root_nodes.push_back(construct_print());
 			continue;
 		}
 		
@@ -45,7 +46,7 @@ std::vector<std::shared_ptr<node_root>> parser::parse()
 		throw compiler_exception("Incorrect token placement: Isolated <" + next_token.value().to_string() + ">");
 	}
 
-	return m_root_nodes;
+	return m_parse_result;
 }
 
 std::optional<token> parser::peek_token() const
@@ -147,7 +148,15 @@ std::shared_ptr<node_expr_text> parser::search_text_expression()
 
 	if (next_token.value().m_type == token_type::val_text)
 	{
-		return std::make_shared<node_expr_text>(consume_token().m_raw_value);
+		// Creating a new node expression of type 'text_literal', insert it in the text literals list
+		auto text_literal = std::make_shared<node_expr_text_literal>(consume_token().m_raw_value);
+		m_parse_result.m_text_literals.push_back(text_literal);
+		return text_literal;
+	}
+	
+	if (next_token.value().m_type == token_type::custom_name)
+	{
+		return retrieve_constant_by_name<node_expr_text_constant>(consume_token().m_raw_value, "string");
 	}
 
 	throw compiler_exception("Syntax error: required text expression, got <" + next_token.value().to_string() + ">");
@@ -166,23 +175,45 @@ std::pair<std::string, std::shared_ptr<node_expr>> parser::construct_constant_de
 	case token_type::type_int:
 	{
 		consume_token();
-	
+
 		// Check for custom name
 		require_token_type(token_type::custom_name);
 		std::string constant_name = consume_token().m_raw_value;
-	
+
 		// Check for equal symbol
 		require_token_type(token_type::sntx_equal);
 		consume_token();
-	
+
 		// Retrieve constant value
 		std::shared_ptr<node_expr_numeric> constant_value = search_numeric_expression();
 
 		// Check for semicolon
 		require_token_type(token_type::sntx_semicolon);
 		consume_token();
-	
+
 		return {constant_name, std::make_shared<node_expr_numeric_constant>(constant_name, constant_value)};
+	}
+	
+	case token_type::type_string:
+	{
+		consume_token();
+			
+		// Check for custom name
+		require_token_type(token_type::custom_name);
+		std::string constant_name = consume_token().m_raw_value;
+			
+		// Check for equal symbol
+		require_token_type(token_type::sntx_equal);
+		consume_token();
+			
+		// Retrieve constant value
+		std::shared_ptr<node_expr_text> constant_value = search_text_expression();
+			
+		// Check for semicolon
+		require_token_type(token_type::sntx_semicolon);
+		consume_token();
+			
+		return {constant_name, std::make_shared<node_expr_text_constant>(constant_name, constant_value)};
 	}
 		
 	default:

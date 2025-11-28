@@ -9,6 +9,13 @@
 #include "node_expr.h"
 
 
+struct parse_result
+{
+    std::vector<std::shared_ptr<node_root>> m_root_nodes;
+    std::vector<std::shared_ptr<node_expr_text_literal>> m_text_literals;
+};
+
+
 class parser
 {
 public:
@@ -20,7 +27,7 @@ public:
     parser& operator=(const parser& other) = delete;
     parser& operator=(parser&& other) = delete;
 
-    [[nodiscard]] std::vector<std::shared_ptr<node_root>> parse();
+    [[nodiscard]] parse_result parse();
 
 private:
     [[nodiscard]] std::optional<token> peek_token() const;
@@ -32,9 +39,9 @@ private:
 
     [[nodiscard]] std::shared_ptr<node_expr_numeric> search_numeric_expression();
     [[nodiscard]] std::shared_ptr<node_expr_text> search_text_expression();
-    
+
     [[nodiscard]] std::pair<std::string, std::shared_ptr<node_expr>> construct_constant_declaration();
-    
+
     template<typename T>
     [[nodiscard]] std::shared_ptr<T> retrieve_constant_by_name(const std::string& constant_name, const std::string& required_type)
     {
@@ -57,6 +64,6 @@ private:
     std::vector<token> m_tokens;
     size_t m_token_index{ 0 };
 
-    std::vector<std::shared_ptr<node_root>> m_root_nodes;
+    parse_result m_parse_result;
     std::unordered_map<std::string, std::shared_ptr<node_expr>> m_constants;
 };

@@ -33,8 +33,8 @@ std::string node_root_print::to_assembly() const
     std::stringstream out;
     out << "    mov rax, 1\n";
     out << "    mov rdi, 1\n";
-    out << "    mov rsi, msg" << m_expr_text->m_assembly_text_index << "\n";
-    out << "    mov rdx, len" << m_expr_text->m_assembly_text_index << "\n";
+    out << "    mov rsi, msg" << m_expr_text->get_assembly_text_index() << "\n";
+    out << "    mov rdx, len" << m_expr_text->get_assembly_text_index() << "\n";
     out << "    syscall";
     return out.str();
 }

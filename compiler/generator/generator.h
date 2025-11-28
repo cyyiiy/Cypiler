@@ -1,14 +1,13 @@
 #pragma once
 #include <memory>
-#include <vector>
 #include <sstream>
 #include <string>
-#include <parser/node_root.h>
+#include <parser/parser.h>
 
 class generator
 {
 public:
-    explicit generator(std::vector<std::shared_ptr<node_root>> root_nodes);
+    explicit generator(parse_result parse_result);
     ~generator() = default;
 
     generator(const generator& other) = delete;
@@ -21,6 +20,6 @@ public:
 private:
     [[nodiscard]] std::vector<std::string> search_text_expressions() const;
     
-    std::vector<std::shared_ptr<node_root>> m_root_nodes;
+    parse_result m_parse_result;
     std::stringstream m_assembly;
 };

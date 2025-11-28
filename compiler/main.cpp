@@ -59,10 +59,10 @@ int main(int argc, char* argv[])
     // 3. Parse tokens
 
     parser parser(tokens);
-    std::vector<std::shared_ptr<node_root>> root_nodes;
+    parse_result parse_result;
     try
     {
-        root_nodes = parser.parse();
+        parse_result = parser.parse();
     }
     catch (const compiler_exception& e)
     {
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
     }
 
     std::cout << "Parsed nodes:\n----------\n";
-    for (const auto& node : root_nodes)
+    for (const auto& node : parse_result.m_root_nodes)
     {
         std::cout << node->to_string() << "\n";
     }
@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 
     // 4. Generate assembly
 
-    generator generator(root_nodes);
+    generator generator(parse_result);
     const std::string assembly = generator.generate();
 
     std::cout << "Assembly code:\n----------\n";
