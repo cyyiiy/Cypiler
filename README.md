@@ -5,7 +5,7 @@ _As you can tell, the gimmick is that I take the "cy" from my name and put it ev
 
 The project is currently in development, and the list of features supported for the cy++ language will be expanded
 with each release.
-> Current version: 0.1.0
+> Current version: 0.2.0
 
 
 ## The cy++ language
@@ -15,12 +15,20 @@ and instructions arguments are expected to be inside parenthesis `()`. \
 Supported instructions are:
 - `print("text");` The `print` instruction automatically sets a line break at the end of the text.
 - `exit(exit_code);`
+- `const int name = val;` Declare a numeric constant that can later be used with the `exit` instruction,
+or in the declaration of another numeric constant.
+- `const string name = "val";` Declare a text constant that can later be used with the `print` instruction,
+or in the declaration of another text constant.
 
 Example of a program written in cy++:
 ```
-print("Hello from cy++");
+const string print_val = "Hello from cy++";
+const int exit_val = 3;
+
+print(print_val);
 print("You can try this at home!");
-exit(3);
+
+exit(exit_val);
 ```
 
 
@@ -43,6 +51,7 @@ If you're on Mac, I have absolutely no idea how it works, but you can surely fin
 ## Roadmap
 
 Next features currently planned:
-- Variables ("string" and "int" like types)
-- Arithmetic operations (at least the addition)
+- Comments (auto-generated comments in the asm, and comments in cypp)
+- Integer variables
+- Addition operation for integer variables
 - `if` and `else`
