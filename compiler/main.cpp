@@ -4,6 +4,7 @@
 #include "utils/compiler_exception.h"
 #include "utils/file_reader.h"
 #include "utils/file_writer.h"
+#include "precompiler/precompiler.h"
 #include "tokenizer/tokenizer.h"
 #include "parser/parser.h"
 #include "generator/generator.h"
@@ -32,11 +33,21 @@ int main(int argc, char* argv[])
     }
 
     std::cout << "Raw source:\n----------\n" << content << "\n==========\n\n";
-
     
-    // 2. Tokenize source code
+    
+    // 2. Precompile source code
+    
+    precompiler precompiler(content);
+    const std::string code = precompiler.precompile();
 
-    tokenizer tokenizer(content);
+    std::cout << "Precompiled code:\n----------\n";
+    std::cout << code << "\n";
+    std::cout << "==========\n\n";
+    
+    
+    // 3. Tokenize precompiled code
+
+    tokenizer tokenizer(code);
     std::vector<token> tokens;
     try
     {
@@ -56,7 +67,7 @@ int main(int argc, char* argv[])
     std::cout << "==========\n\n";
 
 
-    // 3. Parse tokens
+    // 4. Parse tokens
 
     parser parser(tokens);
     parse_result parse_result;
@@ -78,7 +89,7 @@ int main(int argc, char* argv[])
     std::cout << "==========\n\n";
 
 
-    // 4. Generate assembly
+    // 5. Generate assembly
 
     generator generator(parse_result);
     const std::string assembly = generator.generate();
@@ -88,7 +99,7 @@ int main(int argc, char* argv[])
     std::cout << "==========\n\n";
 
 
-    // 5. Write assembly to file
+    // 6. Write assembly to file
 
     std::filesystem::path asm_path = std::filesystem::path(argv[0]).parent_path();
     std::filesystem::path asm_name = std::filesystem::path(argv[1]).filename();

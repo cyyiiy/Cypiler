@@ -183,6 +183,7 @@
     <ClCompile Include="parser\node_expr.cpp" />
     <ClCompile Include="parser\parser.cpp" />
     <ClCompile Include="parser\node_root.cpp" />
+    <ClCompile Include="precompiler\precompiler.cpp" />
     <ClCompile Include="tokenizer\token.cpp" />
     <ClCompile Include="tokenizer\token_type.cpp" />
     <ClCompile Include="utils\file_reader.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="parser\node_expr.h" />
     <ClInclude Include="parser\parser.h" />
     <ClInclude Include="parser\node_root.h" />
+    <ClInclude Include="precompiler\precompiler.h" />
     <ClInclude Include="utils\compiler_exception.h" />
     <ClInclude Include="utils\file_reader.h" />
     <ClInclude Include="tokenizer\token.h" />
