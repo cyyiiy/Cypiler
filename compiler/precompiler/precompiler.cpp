@@ -17,15 +17,22 @@ std::string precompiler::precompile()
             consume_char();
             next_char = peek_char();
             
-            // Search for single line comment
+            // Search for single line comment ("//")
             if (next_char.has_value() && next_char.value() == '/')
             {
                 skip_line();
+                if (!peek_char().has_value())
+                {
+                    // Prevent crash if 'skip_line' skipped until the end of the source
+                    return m_precompiled;
+                }
             }
         }
         
         m_precompiled += consume_char();
     }
+    
+    return m_precompiled;
 }
 
 std::optional<char> precompiler::peek_char() const
@@ -45,17 +52,17 @@ char precompiler::consume_char()
 
 void precompiler::skip_line()
 {
-    std::optional<char> next_char = peek_char();
-    while (next_char.has_value())
+    std::optional<char> next_char;
+    while ((next_char = peek_char()).has_value())
     {
         if (next_char.value() == '\n' || next_char.value() == '\r')
         {
-            // TODO: Handle line break (take care of line break symbol being multiple chars)
+            // Encountered line break (do not consume it), line is skipped
             return;
         }
         
-        m_read_index++;
+        consume_char();
     }
     
-    // No more char in the source so line is skipped
+    // No more char in the source so line is technically skipped
 }

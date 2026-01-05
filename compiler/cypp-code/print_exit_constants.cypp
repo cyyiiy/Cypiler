@@ -1,7 +1,9 @@
 const string print_val = "Hello from constant value!";
 const int exit_val = 13;
+// First comment
 
 print(print_val);
-print("Hello from direct text!");
+print("Hello from direct text!"); // Second comment
 
 exit(exit_val);
+// Third comment
