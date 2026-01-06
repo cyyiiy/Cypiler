@@ -13,6 +13,7 @@ std::string node_root_exit::to_string(const int offset) const
 std::string node_root_exit::to_assembly() const
 {
     std::stringstream out;
+    out << "    ; Exit instruction\n";
     out << "    mov rax, 60\n";
     out << "    mov rdi, " << m_expr_numeric->get_numeric_value() << "\n";
     out << "    syscall";
@@ -30,11 +31,15 @@ std::string node_root_print::to_string(const int offset) const
 
 std::string node_root_print::to_assembly() const
 {
+    const int print_asm_text_index = m_expr_text->get_assembly_text_index();
+    
     std::stringstream out;
+    out << "    ; Print to console instruction\n";
+    out << "    ; Print text value " << print_asm_text_index << "\n";
     out << "    mov rax, 1\n";
     out << "    mov rdi, 1\n";
-    out << "    mov rsi, msg" << m_expr_text->get_assembly_text_index() << "\n";
-    out << "    mov rdx, len" << m_expr_text->get_assembly_text_index() << "\n";
+    out << "    mov rsi, msg" << print_asm_text_index << "\n";
+    out << "    mov rdx, len" << print_asm_text_index << "\n";
     out << "    syscall";
     return out.str();
 }
