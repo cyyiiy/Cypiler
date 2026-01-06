@@ -38,7 +38,16 @@ int main(int argc, char* argv[])
     // 2. Precompile source code
     
     precompiler precompiler(content);
-    const std::string code = precompiler.precompile();
+    std::string code;
+    try
+    {
+        code = precompiler.precompile();
+    }
+    catch (const compiler_exception& e)
+    {
+        std::cerr << "Precompiler error: " << e.what() << "\n";
+        return EXIT_FAILURE;
+    }
 
     std::cout << "Precompiled code:\n----------\n";
     std::cout << code << "\n";

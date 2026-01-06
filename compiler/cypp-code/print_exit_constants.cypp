@@ -5,5 +5,9 @@ const int exit_val = 13;
 print(print_val);
 print("Hello from direct text!"); // Second comment
 
+/* Disabled code block
+print("Not hello from comment.");
+*/
+
 exit(exit_val);
 // Third comment

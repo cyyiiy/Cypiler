@@ -1,4 +1,5 @@
 ﻿#include "precompiler.h"
+#include <utils/compiler_exception.h>
 
 precompiler::precompiler(std::string source) : m_source(std::move(source))
 {
@@ -21,15 +22,23 @@ std::string precompiler::precompile()
             if (next_char.has_value() && next_char.value() == '/')
             {
                 skip_line();
-                if (!peek_char().has_value())
-                {
-                    // Prevent crash if 'skip_line' skipped until the end of the source
-                    return m_precompiled;
-                }
+                continue;
             }
+            
+            // Search for multi-line comment ("/*")
+            if (next_char.has_value() && next_char.value() == '*')
+            {
+                skip_multiline();
+                continue;
+            }
+            
+            // Isolated '/' that isn't a comment, let it in the precompiled code
+            m_precompiled += '/';
         }
-        
-        m_precompiled += consume_char();
+        else
+        {
+            m_precompiled += consume_char();
+        }
     }
     
     return m_precompiled;
@@ -65,4 +74,29 @@ void precompiler::skip_line()
     }
     
     // No more char in the source so line is technically skipped
+}
+
+void precompiler::skip_multiline()
+{
+    std::optional<char> next_char;
+    while ((next_char = peek_char()).has_value())
+    {
+        if (next_char.value() == '*')
+        {
+            consume_char();
+            
+            next_char = peek_char();
+            if (next_char.has_value() && next_char.value() == '/')
+            {
+                // Encountered end of multi-line comment ("*/"), comment is skipped
+                consume_char();
+                return;
+            }
+        }
+        
+        consume_char();
+    }
+    
+    // No more char in the source so multi-line comment is never ended
+    throw compiler_exception("Multi-line comment is not closed. Need \"*/\".");
 }

@@ -20,6 +20,7 @@ private:
     char consume_char();
     
     void skip_line();
+    void skip_multiline();
     
     
     const std::string m_source;
