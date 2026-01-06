@@ -5,7 +5,7 @@ _As you can tell, the gimmick is that I take the "cy" from my name and put it ev
 
 The project is currently in development, and the list of features supported for the cy++ language will be expanded
 with each release.
-> Current version: 0.2.0
+> Current version: 0.3.0
 
 
 ## The cy++ language
@@ -20,11 +20,15 @@ or in the declaration of another numeric constant.
 - `const string name = "val";` Declare a text constant that can later be used with the `print` instruction,
 or in the declaration of another text constant.
 
+The language also supports comments, both single line `//comment` and multi lines `/*comment*/`.
+
 Example of a program written in cy++:
-```
+```csharp
+// Declare constants
 const string print_val = "Hello from cy++";
 const int exit_val = 3;
 
+// Execute instructions
 print(print_val);
 print("You can try this at home!");
 
@@ -51,7 +55,9 @@ If you're on Mac, I have absolutely no idea how it works, but you can surely fin
 ## Roadmap
 
 Next features currently planned:
-- Comments (auto-generated comments in the asm, and comments in cypp)
+- Add unit tests to the compiler
 - Integer variables
 - Addition operation for integer variables
-- `if` and `else`
+- Integer to string (or at least be able to print integer constants and variables)
+- Console input reading
+- `if` and `else` with `==` operator for integers
