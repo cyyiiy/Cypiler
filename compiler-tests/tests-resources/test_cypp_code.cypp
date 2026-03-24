@@ -1,0 +1,9 @@
+// Declare constants
+const string print_val = "Hello from cy++";
+const int exit_val = 3;
+
+// Execute instructions
+print(print_val);
+print("You can try this at home!");
+
+exit(exit_val);
