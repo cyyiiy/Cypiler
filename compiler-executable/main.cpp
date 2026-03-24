@@ -1,13 +1,13 @@
 #include <iostream>
 #include <filesystem>
 
-#include "utils/compiler_exception.h"
-#include "utils/file_reader.h"
-#include "utils/file_writer.h"
-#include "precompiler/precompiler.h"
-#include "tokenizer/tokenizer.h"
-#include "parser/parser.h"
-#include "generator/generator.h"
+#include <compiler/utils/compiler_exception.h>
+#include <compiler/utils/file_reader.h>
+#include <compiler/utils/file_writer.h>
+#include <compiler/precompiler/precompiler.h>
+#include <compiler/tokenizer/tokenizer.h>
+#include <compiler/parser/parser.h>
+#include <compiler/generator/generator.h>
 
 
 int main(int argc, char* argv[])

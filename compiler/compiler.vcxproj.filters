@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="tokenizer\tokenizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utils\file_writer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="precompiler\precompiler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,6 +80,9 @@
     <ClInclude Include="utils\compiler_exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="precompiler\precompiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assembly-references\print_and_exit.asm">
@@ -88,5 +91,8 @@
     <None Include="cypp-code\print_and_exit.cypp" />
     <None Include="cypp-code\exit_with_error_code.cypp" />
     <None Include="cypp-code\print_exit_constants.cypp" />
+    <None Include="assembly-references\exit_with_error_code.asm">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
