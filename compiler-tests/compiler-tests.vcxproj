@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tests_file_reader.cpp" />
+    <ClCompile Include="tests_file_writer.cpp" />
     <ClCompile Include="tests_main.cpp" />
   </ItemGroup>
   <ItemGroup>
