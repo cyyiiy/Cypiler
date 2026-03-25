@@ -7,12 +7,12 @@ TEST_CASE("Read File")
 {
     // Setup
     // ===============================
-    std::filesystem::path file_path = "tests-resources/test_cypp_code.cypp";
+    const std::filesystem::path file_path = "tests-resources/test_cypp_code.cypp";
     std::string file_content;
     
     // Execute
     // ===============================
-    bool result = file_reader::read_file(file_path, ".cypp", file_content);
+    const bool result = file_reader::read_file(file_path, ".cypp", file_content);
     
     // Verify
     // ===============================
@@ -35,12 +35,12 @@ TEST_CASE("Read File Not Existing")
 {
     // Setup
     // ===============================
-    std::filesystem::path file_path = "tests-resources/non_existing_file.cypp";
+    const std::filesystem::path file_path = "tests-resources/non_existing_file.cypp";
     std::string error_message;
     
     // Execute
     // ===============================
-    bool result = file_reader::read_file(file_path, ".cypp", error_message);
+    const bool result = file_reader::read_file(file_path, ".cypp", error_message);
     
     // Verify
     // ===============================
@@ -52,12 +52,12 @@ TEST_CASE("Read File Wrong Extension")
 {
     // Setup
     // ===============================
-    std::filesystem::path file_path = "tests-resources/test_cypp_code.cypp";
+    const std::filesystem::path file_path = "tests-resources/test_cypp_code.cypp";
     std::string error_message;
     
     // Execute
     // ===============================
-    bool result = file_reader::read_file(file_path, ".cpp", error_message);
+    const bool result = file_reader::read_file(file_path, ".cpp", error_message);
     
     // Verify
     // ===============================

@@ -7,13 +7,13 @@ TEST_CASE("Write File")
 {
     // Setup
     // ===============================
-    std::filesystem::path file_path = "tests-resources/test_write_file.asm";
-    std::string file_content = "file content";
+    const std::filesystem::path file_path = "tests-resources/test_write_file.asm";
+    const std::string file_content = "file content";
     std::string error_message;
     
     // Execute
     // ===============================
-    bool result = file_writer::write_file(file_path, file_content, error_message);
+    const bool result = file_writer::write_file(file_path, file_content, error_message);
     
     // Verify
     // ===============================
