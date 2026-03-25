@@ -147,6 +147,13 @@
       <Name>compiler</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="assembly-references\exit_with_error_code.asm" />
+    <Content Include="assembly-references\print_and_exit.asm" />
+    <Content Include="cypp-code\exit_with_error_code.cypp" />
+    <Content Include="cypp-code\print_and_exit.cypp" />
+    <Content Include="cypp-code\print_exit_constants.cypp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
