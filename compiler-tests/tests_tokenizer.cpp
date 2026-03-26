@@ -1,7 +1,6 @@
 ﻿#include "doctest.h"
 #include <compiler/tokenizer/tokenizer.h>
 #include <compiler/utils/compiler_exception.h>
-#include <iostream>
 
 TEST_SUITE_BEGIN("Tests Tokenizer");
 
