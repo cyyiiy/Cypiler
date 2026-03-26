@@ -11,6 +11,11 @@ struct token
     
     token_type m_type;
     std::string m_raw_value;
+    
+    bool operator==(const token& other) const
+    {
+        return m_type == other.m_type && m_raw_value == other.m_raw_value;
+    }
 };
 
 namespace token_utils
