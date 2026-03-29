@@ -153,6 +153,7 @@
     <Content Include="cypp-code\exit_with_error_code.cypp" />
     <Content Include="cypp-code\print_and_exit.cypp" />
     <Content Include="cypp-code\print_exit_constants.cypp" />
+    <Content Include="cypp-code\test.cypp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

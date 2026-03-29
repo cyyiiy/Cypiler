@@ -13,6 +13,16 @@ struct parse_result
 {
     std::vector<std::shared_ptr<node_root>> m_root_nodes;
     std::vector<std::shared_ptr<node_expr_text_literal>> m_text_literals;
+
+    [[nodiscard]] bool is_empty() const
+    {
+        return m_root_nodes.empty();
+    }
+    
+    bool operator==(const parse_result& other) const
+    {
+        return m_root_nodes == other.m_root_nodes && m_text_literals == other.m_text_literals;
+    }
 };
 
 

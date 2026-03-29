@@ -99,6 +99,12 @@ int main(int argc, char* argv[])
 
 
     // 5. Generate assembly
+    
+    if (parse_result.is_empty())
+    {
+        std::cerr << "Generator error: Parse result is empty\n";
+        return EXIT_FAILURE;
+    }
 
     generator generator(parse_result);
     const std::string assembly = generator.generate();
