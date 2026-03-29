@@ -33,6 +33,15 @@ bool file_reader::read_file(const std::filesystem::path& file_path, const std::s
 	std::ostringstream buffer;
 	buffer << file.rdbuf();
 	out = buffer.str();
+	
+	// Discard BOM UTF-8 bits
+	if (out.size() >= 3 && 
+		static_cast<unsigned char>(out[0]) == 0xEF && 
+		static_cast<unsigned char>(out[1]) == 0xBB && 
+		static_cast<unsigned char>(out[2]) == 0xBF)
+	{
+		out.erase(0, 3);
+	}
 
 	return true;
 }
