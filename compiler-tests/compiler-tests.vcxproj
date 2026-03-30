@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="tests-resources\test_cypp_code.cypp" />
+    <Content Include="tests-resources\test_utf8_bom.cypp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

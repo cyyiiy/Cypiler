@@ -65,4 +65,21 @@ TEST_CASE("Read File Wrong Extension")
     CHECK(error_message == "File extension is not .cpp!");
 }
 
+TEST_CASE("Read File UTF-8 BOM Encoding")
+{
+    // Setup
+    // ===============================
+    const std::filesystem::path file_path = "tests-resources/test_utf8_bom.cypp";
+    std::string file_content;
+    
+    // Execute
+    // ===============================
+    const bool result = file_reader::read_file(file_path, ".cypp", file_content);
+    
+    // Verify
+    // ===============================
+    CHECK(result == true);
+    CHECK(file_content == "// This file is saved with UTF-8 BOM encoding");
+}
+
 TEST_SUITE_END;
