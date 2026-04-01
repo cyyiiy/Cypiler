@@ -192,7 +192,6 @@ TEST_CASE("Parse Print Missing Token")
     CHECK(output_nodes.m_text_literals.size() == 0);
 }
 
-
 TEST_CASE("Parse Constant Declaration and Usage")
 {
     // Setup
@@ -226,6 +225,7 @@ TEST_CASE("Parse Constant Declaration and Usage")
     REQUIRE(IS_VALID(output_node_exit));
     auto output_node_numeric_constant = std::dynamic_pointer_cast<node_expr_numeric_constant>(output_node_exit->m_expr_numeric);
     REQUIRE(IS_VALID(output_node_numeric_constant));
+    CHECK(output_node_numeric_constant->m_custom_name == "constant");
     auto output_node_numeric_literal = std::dynamic_pointer_cast<node_expr_numeric_literal>(output_node_numeric_constant->m_expr_numeric);
     REQUIRE(IS_VALID(output_node_numeric_literal));
     CHECK(output_node_numeric_literal->m_numeric_value == "0");
