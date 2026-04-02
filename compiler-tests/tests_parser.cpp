@@ -11,6 +11,7 @@ TEST_CASE("Parse Exit Instruction")
 {
     // Setup
     // ===============================
+    // Code: exit(0);
     const std::vector<token> input_tokens = {
         token(token_type::istr_exit),
         token(token_type::sntx_par_open),
@@ -40,6 +41,7 @@ TEST_CASE("Parse Exit Wrong Value Type")
 {
     // Setup
     // ===============================
+    // Code: exit("Hello, World!");
     const std::vector<token> input_tokens = {
         token(token_type::istr_exit),
         token(token_type::sntx_par_open),
@@ -72,6 +74,7 @@ TEST_CASE("Parse Exit Wrong Syntax")
 {
     // Setup
     // ===============================
+    // Code: exit)0);
     const std::vector<token> input_tokens = {
         token(token_type::istr_exit),
         token(token_type::sntx_par_close),
@@ -104,6 +107,7 @@ TEST_CASE("Parse Print Instruction")
 {
     // Setup
     // ===============================
+    // Code: print("Hello, World!");
     const std::vector<token> input_tokens = {
         token(token_type::istr_print),
         token(token_type::sntx_par_open),
@@ -133,6 +137,7 @@ TEST_CASE("Parse Print Wrong Value Type")
 {
     // Setup
     // ===============================
+    // Code: print(0);
     const std::vector<token> input_tokens = {
         token(token_type::istr_print),
         token(token_type::sntx_par_open),
@@ -165,6 +170,7 @@ TEST_CASE("Parse Print Missing Token")
 {
     // Setup
     // ===============================
+    // Code: print("Hello, World!")
     const std::vector<token> input_tokens = {
         token(token_type::istr_print),
         token(token_type::sntx_par_open),
@@ -196,6 +202,9 @@ TEST_CASE("Parse Constant Declaration and Usage")
 {
     // Setup
     // ===============================
+    // Code:
+    //  const int constant = 0;
+    //  exit(constant);
     const std::vector<token> input_tokens = {
         token(token_type::istr_constant),
         token(token_type::type_int),
@@ -235,6 +244,8 @@ TEST_CASE("Parse Non-Declared Constant Usage")
 {
     // Setup
     // ===============================
+    // Code: 
+    //  exit(constant);
     const std::vector<token> input_tokens = {
         token(token_type::istr_exit),
         token(token_type::sntx_par_open),
@@ -267,6 +278,9 @@ TEST_CASE("Prase Wrong Type Constant Usage")
 {
     // Setup
     // ===============================
+    // Code:
+    //  const int constant = 0;
+    //  print(constant);
     const std::vector<token> input_tokens = {
         token(token_type::istr_constant),
         token(token_type::type_int),

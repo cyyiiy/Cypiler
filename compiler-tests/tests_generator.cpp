@@ -7,6 +7,7 @@ TEST_CASE("Generate Exit Instruction")
 {
     // Setup
     // ===============================
+    // Code: exit(0);
     const parse_result input_nodes = {
         std::vector<std::shared_ptr<node_root>>{
             std::make_shared<node_root_exit>(std::make_shared<node_expr_numeric_literal>("0"))
@@ -39,6 +40,7 @@ TEST_CASE("Generate Print Instruction")
 {
     // Setup
     // ===============================
+    // Code: print("Hello, World!");
     const parse_result input_nodes = {
         std::vector<std::shared_ptr<node_root>>{
             std::make_shared<node_root_print>(std::make_shared<node_expr_text_literal>("Hello, World!"))
@@ -79,6 +81,9 @@ TEST_CASE("Generate Constant Usage")
 {
     // Setup
     // ===============================
+    // Code:
+    //  const int constant = 0;
+    //  exit(constant);
     const parse_result input_nodes = {
         std::vector<std::shared_ptr<node_root>>{
             std::make_shared<node_root_exit>(std::make_shared<node_expr_numeric_constant>(
