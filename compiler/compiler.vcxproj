@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="compiler.cpp" />
     <ClCompile Include="generator\generator.cpp" />
     <ClCompile Include="parser\node_expr.cpp" />
     <ClCompile Include="parser\parser.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="utils\file_writer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="compiler.h" />
     <ClInclude Include="generator\generator.h" />
     <ClInclude Include="parser\node.h" />
     <ClInclude Include="parser\node_expr.h" />

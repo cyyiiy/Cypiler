@@ -1,134 +1,37 @@
 #include <iostream>
 #include <filesystem>
 
+#include <compiler/compiler.h>
 #include <compiler/utils/compiler_exception.h>
-#include <compiler/utils/file_reader.h>
-#include <compiler/utils/file_writer.h>
-#include <compiler/precompiler/precompiler.h>
-#include <compiler/tokenizer/tokenizer.h>
-#include <compiler/parser/parser.h>
-#include <compiler/generator/generator.h>
 
 
 int main(int argc, char* argv[])
 {
-    // 0. Check arguments
-
+    // Check arguments
     if (argc != 2)
     {
         std::cerr << "Incorrect usage! Should be called with 1 argument.\n";
         return EXIT_FAILURE;
     }
-
-
-    // 1. Open file
-
-    std::cout << "Compiling " << argv[1] << "...\n\n";
-
-    std::string content;
-    if (!file_reader::read_file(argv[1], ".cypp", content))
-    {
-        std::cerr << content << "\n";
-        return EXIT_FAILURE;
-    }
-
-    std::cout << "Raw source:\n----------\n" << content << "\n==========\n\n";
+    const std::filesystem::path input_code_path = std::filesystem::path(argv[1]);
     
-    
-    // 2. Precompile source code
-    
-    precompiler precompiler(content);
-    std::string code;
-    try
-    {
-        code = precompiler.precompile();
-    }
-    catch (const compiler_exception& e)
-    {
-        std::cerr << "Precompiler error: " << e.what() << "\n";
-        return EXIT_FAILURE;
-    }
-
-    std::cout << "Precompiled code:\n----------\n";
-    std::cout << code << "\n";
-    std::cout << "==========\n\n";
-    
-    
-    // 3. Tokenize precompiled code
-
-    tokenizer tokenizer(code);
-    std::vector<token> tokens;
-    try
-    {
-        tokens = tokenizer.tokenize();
-    }
-    catch (const compiler_exception& e)
-    {
-        std::cerr << "Tokenizer error: " << e.what() << "\n";
-        return EXIT_FAILURE;
-    }
-
-    std::cout << "Tokens:\n----------\n";
-    for (const auto& token : tokens)
-    {
-        std::cout << token.to_string() << "\n";
-    }
-    std::cout << "==========\n\n";
-
-
-    // 4. Parse tokens
-
-    parser parser(tokens);
-    parse_result parse_result;
-    try
-    {
-        parse_result = parser.parse();
-    }
-    catch (const compiler_exception& e)
-    {
-        std::cerr << "Parser error: " << e.what() << "\n";
-        return EXIT_FAILURE;
-    }
-
-    std::cout << "Parsed nodes:\n----------\n";
-    for (const auto& node : parse_result.m_root_nodes)
-    {
-        std::cout << node->to_string() << "\n";
-    }
-    std::cout << "==========\n\n";
-
-
-    // 5. Generate assembly
-    
-    if (parse_result.is_empty())
-    {
-        std::cerr << "Generator error: Parse result is empty\n";
-        return EXIT_FAILURE;
-    }
-
-    generator generator(parse_result);
-    const std::string assembly = generator.generate();
-
-    std::cout << "Assembly code:\n----------\n";
-    std::cout << assembly << "\n";
-    std::cout << "==========\n\n";
-
-
-    // 6. Write assembly to file
-
+    // Compute assembly output file path
     std::filesystem::path asm_path = std::filesystem::path(argv[0]).parent_path();
     std::filesystem::path asm_name = std::filesystem::path(argv[1]).filename();
     asm_name.replace_extension(".asm");
     asm_path /= asm_name;
-
-    std::string error;
-    if (!file_writer::write_file(asm_path, assembly, error))
+    
+    // Compile the code
+    compiler compiler(input_code_path);
+    try
     {
-        std::cerr << error << "\n";
+        compiler.compile(asm_path, true);
+    }
+    catch (const compiler_exception& e)
+    {
+        std::cerr << e.what() << "\n";
         return EXIT_FAILURE;
     }
-
-    std::cout << "Assembly file generated at " << asm_path << "\n";
-
+    
     return EXIT_SUCCESS;
 }
