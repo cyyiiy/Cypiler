@@ -19,14 +19,24 @@ TEST_CASE("Parse Exit Instruction")
         token(token_type::sntx_par_close),
         token(token_type::sntx_semicolon)
     };
+    parse_result output_nodes;
     
     // Execute
     // ===============================
     parser parser(input_tokens);
-    const parse_result output_nodes = parser.parse();
+    try
+    {
+        output_nodes = parser.parse();
+    }
     
     // Verify
     // ===============================
+    catch (const compiler_exception& e)
+    {
+        CHECK(std::string(e.what()) == "There shouldn't be an exception.");
+        return;
+    }
+    
     CHECK(output_nodes.m_root_nodes.size() == 1);
     CHECK(output_nodes.m_text_literals.size() == 0);
     
@@ -115,14 +125,24 @@ TEST_CASE("Parse Print Instruction")
         token(token_type::sntx_par_close),
         token(token_type::sntx_semicolon)
     };
+    parse_result output_nodes;
     
     // Execute
     // ===============================
     parser parser(input_tokens);
-    const parse_result output_nodes = parser.parse();
+    try
+    {
+        output_nodes = parser.parse();
+    }
     
     // Verify
     // ===============================
+    catch (const compiler_exception& e)
+    {
+        CHECK(std::string(e.what()) == "There shouldn't be an exception.");
+        return;
+    }
+    
     CHECK(output_nodes.m_root_nodes.size() == 1);
     CHECK(output_nodes.m_text_literals.size() == 1);
     
@@ -219,14 +239,24 @@ TEST_CASE("Parse Constant Declaration and Usage")
         token(token_type::sntx_par_close),
         token(token_type::sntx_semicolon)
     };
+    parse_result output_nodes;
     
     // Execute
     // ===============================
     parser parser(input_tokens);
-    const parse_result output_nodes = parser.parse();
+    try
+    {
+        output_nodes = parser.parse();
+    }
     
     // Verify
     // ===============================
+    catch (const compiler_exception& e)
+    {
+        CHECK(std::string(e.what()) == "There shouldn't be an exception.");
+        return;
+    }
+    
     CHECK(output_nodes.m_root_nodes.size() == 1);
     CHECK(output_nodes.m_text_literals.size() == 0);
     

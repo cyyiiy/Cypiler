@@ -17,14 +17,23 @@ TEST_CASE("Tokenize Exit Instruction")
         token(token_type::sntx_par_close),
         token(token_type::sntx_semicolon)
     };
+    std::vector<token> output_tokens;
     
     // Execute
     // ===============================
     tokenizer tokenizer(input_code);
-    const std::vector<token> output_tokens = tokenizer.tokenize();
+    try
+    {
+        output_tokens = tokenizer.tokenize();
+    }
     
     // Verify
     // ===============================
+    catch (const compiler_exception& e)
+    {
+        CHECK(std::string(e.what()) == "There shouldn't be an exception.");
+    }
+    
     CHECK(output_tokens == desired_output);
 }
 
@@ -41,14 +50,23 @@ TEST_CASE("Tokenize Print Instruction")
         token(token_type::sntx_par_close),
         token(token_type::sntx_semicolon)
     };
+    std::vector<token> output_tokens;
     
     // Execute
     // ===============================
     tokenizer tokenizer(input_code);
-    const std::vector<token> output_tokens = tokenizer.tokenize();
+    try
+    {
+        output_tokens = tokenizer.tokenize();
+    }
     
     // Verify
     // ===============================
+    catch (const compiler_exception& e)
+    {
+        CHECK(std::string(e.what()) == "There shouldn't be an exception.");
+    }
+    
     CHECK(output_tokens == desired_output);
 }
 
@@ -74,14 +92,23 @@ TEST_CASE("Tokenize Constant Declaration and Usage")
         token(token_type::sntx_par_close),
         token(token_type::sntx_semicolon)
     };
+    std::vector<token> output_tokens;
     
     // Execute
     // ===============================
     tokenizer tokenizer(input_code);
-    const std::vector<token> output_tokens = tokenizer.tokenize();
+    try
+    {
+        output_tokens = tokenizer.tokenize();
+    }
     
     // Verify
     // ===============================
+    catch (const compiler_exception& e)
+    {
+        CHECK(std::string(e.what()) == "There shouldn't be an exception.");
+    }
+    
     CHECK(output_tokens == desired_output);
 }
 

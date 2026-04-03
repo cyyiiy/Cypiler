@@ -13,14 +13,24 @@ TEST_CASE("Precompile No Comment")
         "exit(a);"
     ;
     const std::string desired_output = input_code;
+    std::string output_code;
     
     // Execute
     // ===============================
     precompiler precompiler(input_code);
-    const std::string output_code = precompiler.precompile();
+    try
+    {
+        output_code = precompiler.precompile();
+    }
     
     // Verify
     // ===============================
+    catch (const compiler_exception& e)
+    {
+        CHECK(std::string(e.what()) == "There shouldn't be an exception.");
+        return;
+    }
+    
     CHECK(output_code == desired_output);
 }
 
@@ -38,14 +48,24 @@ TEST_CASE("Precompile Single Line Comment")
         "exit(a);\n"
         ""
     ;
+    std::string output_code;
     
     // Execute
     // ===============================
     precompiler precompiler(input_code);
-    const std::string output_code = precompiler.precompile();
+    try
+    {
+        output_code = precompiler.precompile();
+    }
     
     // Verify
     // ===============================
+    catch (const compiler_exception& e)
+    {
+        CHECK(std::string(e.what()) == "There shouldn't be an exception.");
+        return;
+    }
+    
     CHECK(output_code == desired_output);
 }
 
@@ -64,14 +84,24 @@ TEST_CASE("Precompile Multi Lines Comment")
         "\n"
         "exit(a);"
     ;
+    std::string output_code;
     
     // Execute
     // ===============================
     precompiler precompiler(input_code);
-    const std::string output_code = precompiler.precompile();
+    try
+    {
+        output_code = precompiler.precompile();
+    }
     
     // Verify
     // ===============================
+    catch (const compiler_exception& e)
+    {
+        CHECK(std::string(e.what()) == "There shouldn't be an exception.");
+        return;
+    }
+    
     CHECK(output_code == desired_output);
 }
 
