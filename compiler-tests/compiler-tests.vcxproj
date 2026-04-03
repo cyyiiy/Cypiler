@@ -27,6 +27,7 @@
     <ClCompile Include="tests_generator.cpp" />
     <ClCompile Include="tests_main.cpp" />
     <ClCompile Include="tests_parser.cpp" />
+    <ClCompile Include="tests_pipeline.cpp" />
     <ClCompile Include="tests_precompiler.cpp" />
     <ClCompile Include="tests_tokenizer.cpp" />
   </ItemGroup>
@@ -38,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="tests-resources\test_cypp_code.cypp" />
+    <Content Include="tests-resources\test_empty_parse_result.cypp" />
     <Content Include="tests-resources\test_utf8_bom.cypp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
