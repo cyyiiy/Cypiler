@@ -5,7 +5,7 @@ _As you can tell, the gimmick is that I take the "cy" from my name and put it ev
 
 The project is currently in development, and the list of features supported for the cy++ language will be expanded
 with each release.
-> Current version: 0.3.0
+> Current version: 0.4.0
 
 
 ## The cy++ language
@@ -40,7 +40,8 @@ exit(exit_val);
 
 You need to call the compiler with the cypp file you want to compile as the first (and only) argument.
 Example: `compiler.exe test.cypp` on Windows.\
-It will generate an assembly file (if the code compiles of course) next to the compiler executable.
+It will generate an assembly file (if the code compiles of course) next to the compiler executable. \
+To compile the compiler and create an executable, you will need to run `main.cpp` in the `compiler-executable` project.
 
 ### How to run the assembly code
 
@@ -55,9 +56,10 @@ If you're on Mac, I have absolutely no idea how it works, but you can surely fin
 ## Roadmap
 
 Next features currently planned:
-- Add unit tests to the compiler
+- Rework of the parser nodes (to prepare for integer variables)
 - Integer variables
 - Addition operation for integer variables
 - Integer to string (or at least be able to print integer constants and variables)
 - Console input reading
+- Be able to create a very simple calculator in cy++ (major goal)
 - `if` and `else` with `==` operator for integers
